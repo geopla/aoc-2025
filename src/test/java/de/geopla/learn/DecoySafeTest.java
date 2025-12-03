@@ -3,6 +3,7 @@ package de.geopla.learn;
 import de.geopla.learn.DecoySafe.Dial;
 import de.geopla.learn.DecoySafe.Turn;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -49,4 +50,38 @@ class DecoySafeTest {
         assertThat(decoySafe.dial().pointsTo()).isEqualTo(nextDialPosition);
     }
 
+
+    @DisplayName("Should count marker passes to the right (including final destination)")
+    @ParameterizedTest(name = "[{index}]: {1} clicks right from position {0} passes {2} times(s) zero ")
+    @CsvSource({
+            "50,  49, 0",
+            "50,  50, 1",
+            "50,  70, 1",
+            "50, 270, 3",
+    })
+    void shouldCountMarkerPassesToTheRight(int start, int clicks, int zeroPasses) {
+        var decoySafe = new DecoySafe(new Dial(start));
+        var turn = new Turn(RIGHT, clicks);
+
+        decoySafe.next(turn);
+
+        assertThat(decoySafe.dial().zeroPassCount()).isEqualTo(zeroPasses);
+    }
+
+    @DisplayName("Should count marker passes to the left (including final destination)")
+    @ParameterizedTest(name = "[{index}]: {1} clicks left from position {0} passes {2} times(s) zero ")
+    @CsvSource({
+            "50,  49, 0",
+            "50,  50, 1",
+            "50,  70, 1",
+            "50, 270, 3",
+    })
+    void shouldCountMarkerPassesToTheLeft(int start, int clicks, int zeroPasses) {
+        var decoySafe = new DecoySafe(new Dial(start));
+        var turn = new Turn(LEFT, clicks);
+
+        decoySafe.next(turn);
+
+        assertThat(decoySafe.dial().zeroPassCount()).isEqualTo(zeroPasses);
+    }
 }

@@ -11,7 +11,10 @@ class DecoySafe {
     record Turn(Direction direction, int clicks) {
     }
 
-    record Dial(int pointsTo) {
+    record Dial(int pointsTo, int zeroPassCount) {
+        Dial(int pointsTo) {
+            this(pointsTo, 0);
+        }
     }
 
     private Dial dial;
@@ -29,7 +32,9 @@ class DecoySafe {
                 switch (turn.direction) {
                     case RIGHT -> computeRightDial(dial.pointsTo, turn.clicks);
                     case LEFT -> computeLeftDial(dial.pointsTo, turn.clicks);
-                });
+                },
+                computeZeroPasses(this.dial().pointsTo(), turn.direction(), turn.clicks())
+        );
 
         return dial;
     }
@@ -43,5 +48,12 @@ class DecoySafe {
         var equivalentRightClicks = MAX_DIALS - effectiveClicks;
 
         return computeRightDial(start, equivalentRightClicks);
+    }
+
+    static int computeZeroPasses(int start, Direction direction, int clicks) {
+        return switch (direction) {
+            case RIGHT -> (start + clicks) / MAX_DIALS;
+            case LEFT -> (clicks + MAX_DIALS - start) / MAX_DIALS;
+        };
     }
 }

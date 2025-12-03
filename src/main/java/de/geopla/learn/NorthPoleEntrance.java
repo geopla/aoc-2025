@@ -21,4 +21,9 @@ public class NorthPoleEntrance {
 
         return zeros > 0 ? Optional.of(zeros) : Optional.empty();
     }
+
+    Optional<Long> zeroPositionsIncludingPassesFor(Stream<Turn> turns) {
+        // TODO test an implement part 2
+        return Optional.empty();
+    }
 }
