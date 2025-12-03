@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 @NullMarked
 public class TurnCommands {
 
-    static final Pattern COMMAND = Pattern.compile("(?<direction>[LR]{1})(?<clicks>[\\d)]{1,2})");
+    static final Pattern COMMAND = Pattern.compile("(?<direction>[LR]{1})(?<clicks>[\\d)]+)");
 
     static Stream<Turn> from(Stream<String> commands) {
         return commands.map(TurnCommands::parse);

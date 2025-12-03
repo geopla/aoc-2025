@@ -54,4 +54,19 @@ class NorthPoleEntranceTest {
 
         assertThat(zeroDialPositions).contains(3L);
     }
+
+    @Test
+    @DisplayName("Should count zero dial positions from puzzle")
+    void shouldCountZeroDialPositionsFromPuzzle() {
+        var entrance = new NorthPoleEntrance(50);
+
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("turn-commands-puzzle.txt");
+        Stream<String> commands = new BufferedReader(new InputStreamReader(inputStream)).lines();
+
+        Stream<Turn> dialTurns = TurnCommands.from(commands);
+
+        var zeroDialPositions = entrance.zeroPositionsFor(dialTurns);
+
+        assertThat(zeroDialPositions).contains(1165L);
+    }
 }
