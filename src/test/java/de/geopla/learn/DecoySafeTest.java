@@ -6,12 +6,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import static de.geopla.learn.DecoySafe.next;
 import static de.geopla.learn.Direction.LEFT;
 import static de.geopla.learn.Direction.RIGHT;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class DecoySafeTest {
+
 
     @DisplayName("Should dial to the right")
     @ParameterizedTest(name = "[{index}]: {1} clicks right from position {0} leads to {2}")
@@ -22,11 +22,13 @@ class DecoySafeTest {
             "50,  77, 27",
             "50, 177, 27",
     })
-    void shouldDialToTheRight(int startPosition, int clicks, int expectedNextDialPosition) {
+    void shouldDialToTheRight(int startPosition, int clicks, int nextDialPosition) {
+        var decoySafe = new DecoySafe(new Dial(startPosition));
         var turn = new Turn(RIGHT, clicks);
-        var dial = new Dial(startPosition);
 
-        assertThat(next(turn, dial).pointsTo()).isEqualTo(expectedNextDialPosition);
+        decoySafe.next(turn);
+
+        assertThat(decoySafe.dial().pointsTo()).isEqualTo(nextDialPosition);
     }
 
     @DisplayName("Should dial to the left")
@@ -38,13 +40,13 @@ class DecoySafeTest {
             "50,  58, 92",
             "50, 158, 92",
     })
-    void shouldDialToTheLeft(int startPosition, int clicks, int expectedNextDialPosition) {
+    void shouldDialToTheLeft(int startPosition, int clicks, int nextDialPosition) {
+        var decoySafe = new DecoySafe(new Dial(startPosition));
         var turn = new Turn(LEFT, clicks);
-        var dial = new Dial(startPosition);
 
-        assertThat(next(turn, dial).pointsTo()).isEqualTo(expectedNextDialPosition);
+        decoySafe.next(turn);
+
+        assertThat(decoySafe.dial().pointsTo()).isEqualTo(nextDialPosition);
     }
-
-
 
 }
