@@ -3,7 +3,6 @@ package de.geopla.learn;
 import de.geopla.learn.DecoySafe.Dial;
 import de.geopla.learn.DecoySafe.Turn;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -12,7 +11,6 @@ import static de.geopla.learn.Direction.RIGHT;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class DecoySafeTest {
-
 
     @DisplayName("Should dial to the right")
     @ParameterizedTest(name = "[{index}]: {1} clicks right from position {0} leads to {2}")

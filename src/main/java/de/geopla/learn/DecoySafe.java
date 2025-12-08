@@ -15,6 +15,20 @@ class DecoySafe {
         Dial(int pointsTo) {
             this(pointsTo, 0);
         }
+
+        boolean hasFinalDestinationZero() {
+            return pointsTo() == 0;
+        }
+
+        boolean hasZeroPassesOrFinalZeroDestination() {
+            return hasFinalDestinationZero() || zeroPassCount() > 0;
+        }
+
+        long countZeroPassesAndZeroDestination() {
+            var zeroDestinationCount = hasFinalDestinationZero() ? 1 : 0;
+
+            return zeroPassCount() > 0 ? zeroPassCount() : zeroDestinationCount;
+        }
     }
 
     private Dial dial;
@@ -53,7 +67,10 @@ class DecoySafe {
     static int computeZeroPasses(int start, Direction direction, int clicks) {
         return switch (direction) {
             case RIGHT -> (start + clicks) / MAX_DIALS;
-            case LEFT -> (clicks + MAX_DIALS - start) / MAX_DIALS;
+            case LEFT -> {
+                var zeroPasses = (clicks + MAX_DIALS - start) / MAX_DIALS;
+                yield start == 0 ? zeroPasses - 1 : zeroPasses;
+            }
         };
     }
 }

@@ -24,16 +24,11 @@ public class NorthPoleEntrance {
 
     Optional<Long> zeroPositionsIncludingZeroPassesFor(Stream<Turn> turns) {
         var zeros = DialSequence.from(turns, decoySafe)
-                .filter(dial -> dial.pointsTo() == 0 || dial.zeroPassCount() > 0)
-                .map(this::countZerosForPassesAndFinalZeroDestination)
+                .filter(Dial::hasZeroPassesOrFinalZeroDestination)
+                .map(Dial::countZeroPassesAndZeroDestination)
                 .reduce(0L, Long::sum);
 
         return zeros > 0 ? Optional.of(zeros) : Optional.empty();
     }
 
-    long countZerosForPassesAndFinalZeroDestination(Dial dial) {
-        int zeroDestinationCount = dial.pointsTo() == 0 ? 1 : 0;
-
-        return dial.zeroPassCount() > 0 ? dial.zeroPassCount() : zeroDestinationCount;
-    }
 }

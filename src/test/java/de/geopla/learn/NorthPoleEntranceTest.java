@@ -77,7 +77,7 @@ class NorthPoleEntranceTest {
 
     @ParameterizedTest
     @MethodSource
-    @DisplayName("Should count zero passes starting from dial 50")
+    @DisplayName("Should count zero passes and final destination zero starting from dial 50")
     void shouldCountZeroPasses(Stream<Turn> dialTurns, long zeroPasses) {
         var entrance = new NorthPoleEntrance(50);
         var zeroDialPositions = entrance.zeroPositionsIncludingZeroPassesFor(dialTurns);
@@ -99,5 +99,35 @@ class NorthPoleEntranceTest {
           arguments(Stream.of(new Turn(LEFT, 150)), 2L),
           arguments(Stream.of(new Turn(LEFT, 250)), 3L)
         );
+    }
+
+    @Test
+    @DisplayName("Should count zero passes and final destination zero from sample input")
+    void shouldCountZeroPassesSample() {
+        var entrance = new NorthPoleEntrance(50);
+
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("turn-commands-sample.txt");
+        Stream<String> commands = new BufferedReader(new InputStreamReader(inputStream)).lines();
+
+        Stream<Turn> dialTurns = TurnCommands.from(commands);
+
+        var zeroDialPositions = entrance.zeroPositionsIncludingZeroPassesFor(dialTurns);
+
+        assertThat(zeroDialPositions).hasValue(6L);
+    }
+
+    @Test
+    @DisplayName("Should count zero passes and final destination zero from puzzle input")
+    void shouldCountZeroPassesPuzzle() {
+        var entrance = new NorthPoleEntrance(50);
+
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("turn-commands-puzzle.txt");
+        Stream<String> commands = new BufferedReader(new InputStreamReader(inputStream)).lines();
+
+        Stream<Turn> dialTurns = TurnCommands.from(commands);
+
+        var zeroDialPositions = entrance.zeroPositionsIncludingZeroPassesFor(dialTurns);
+
+        assertThat(zeroDialPositions).hasValue(6496L);
     }
 }
