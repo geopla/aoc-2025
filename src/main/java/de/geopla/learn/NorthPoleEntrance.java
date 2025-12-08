@@ -10,25 +10,23 @@ public class NorthPoleEntrance {
 
     private final DecoySafe decoySafe;
 
-    public NorthPoleEntrance(int safeDialPointsTo) {
-        decoySafe = new DecoySafe(new Dial(safeDialPointsTo));
+    public NorthPoleEntrance(int currentlyPointsTo) {
+        decoySafe = new DecoySafe(new Dial(currentlyPointsTo));
     }
 
     Optional<Long> zeroPositionsFor(Stream<Turn> turns) {
-        var zeros = DialSequence.from(turns, decoySafe)
+        return Optional.of(DialSequence.from(turns, decoySafe)
                 .filter(dial -> dial.pointsTo() == 0)
-                .count();
-
-        return zeros > 0 ? Optional.of(zeros) : Optional.empty();
+                .count())
+                .filter(count -> count > 0);
     }
 
     Optional<Long> zeroPositionsIncludingZeroPassesFor(Stream<Turn> turns) {
-        var zeros = DialSequence.from(turns, decoySafe)
+        return Optional.of(DialSequence.from(turns, decoySafe)
                 .filter(Dial::hasZeroPassesOrFinalZeroDestination)
                 .map(Dial::countZeroPassesAndZeroDestination)
-                .reduce(0L, Long::sum);
-
-        return zeros > 0 ? Optional.of(zeros) : Optional.empty();
+                .reduce(0L, Long::sum))
+                .filter(count -> count > 0);
     }
 
 }
