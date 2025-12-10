@@ -1,4 +1,4 @@
-package de.geopla.learn;
+package de.geopla.learn.day1;
 
 public enum Direction {
     LEFT,

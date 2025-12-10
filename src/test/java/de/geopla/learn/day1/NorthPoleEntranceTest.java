@@ -1,6 +1,6 @@
-package de.geopla.learn;
+package de.geopla.learn.day1;
 
-import de.geopla.learn.DecoySafe.Turn;
+import de.geopla.learn.day1.DecoySafe.Turn;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -12,8 +12,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.stream.Stream;
 
-import static de.geopla.learn.Direction.LEFT;
-import static de.geopla.learn.Direction.RIGHT;
+import static de.geopla.learn.day1.Direction.LEFT;
+import static de.geopla.learn.day1.Direction.RIGHT;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 

@@ -1,7 +1,7 @@
-package de.geopla.learn;
+package de.geopla.learn.day1;
 
-import de.geopla.learn.DecoySafe.Dial;
-import de.geopla.learn.DecoySafe.Turn;
+import de.geopla.learn.day1.DecoySafe.Dial;
+import de.geopla.learn.day1.DecoySafe.Turn;
 import org.jspecify.annotations.NullMarked;
 
 import java.util.Iterator;
@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 @NullMarked
-class DialSequence {
+public class DialSequence {
 
     static Stream<Dial> from(Stream<Turn> turns, DecoySafe safe) {
         Iterator<Turn> turnsIterator = turns.iterator();

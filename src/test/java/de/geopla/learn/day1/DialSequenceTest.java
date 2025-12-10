@@ -1,7 +1,7 @@
-package de.geopla.learn;
+package de.geopla.learn.day1;
 
-import de.geopla.learn.DecoySafe.Dial;
-import de.geopla.learn.DecoySafe.Turn;
+import de.geopla.learn.day1.DecoySafe.Dial;
+import de.geopla.learn.day1.DecoySafe.Turn;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

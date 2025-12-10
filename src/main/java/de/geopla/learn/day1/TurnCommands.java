@@ -1,6 +1,6 @@
-package de.geopla.learn;
+package de.geopla.learn.day1;
 
-import de.geopla.learn.DecoySafe.Turn;
+import de.geopla.learn.day1.DecoySafe.Turn;
 import org.jspecify.annotations.NullMarked;
 
 import java.util.regex.Pattern;
@@ -11,7 +11,7 @@ public class TurnCommands {
 
     static final Pattern COMMAND = Pattern.compile("(?<direction>[LR]{1})(?<clicks>[\\d)]+)");
 
-    static Stream<Turn> from(Stream<String> commands) {
+    public static Stream<Turn> from(Stream<String> commands) {
         return commands.map(TurnCommands::parse);
     }
 

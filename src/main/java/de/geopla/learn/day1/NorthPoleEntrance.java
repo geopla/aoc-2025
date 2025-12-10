@@ -1,7 +1,7 @@
-package de.geopla.learn;
+package de.geopla.learn.day1;
 
-import de.geopla.learn.DecoySafe.Dial;
-import de.geopla.learn.DecoySafe.Turn;
+import de.geopla.learn.day1.DecoySafe.Dial;
+import de.geopla.learn.day1.DecoySafe.Turn;
 
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -14,14 +14,14 @@ public class NorthPoleEntrance {
         decoySafe = new DecoySafe(new Dial(currentlyPointsTo));
     }
 
-    Optional<Long> zeroPositionsFor(Stream<Turn> turns) {
+    public Optional<Long> zeroPositionsFor(Stream<Turn> turns) {
         return Optional.of(DialSequence.from(turns, decoySafe)
                 .filter(dial -> dial.pointsTo() == 0)
                 .count())
                 .filter(count -> count > 0);
     }
 
-    Optional<Long> zeroPositionsIncludingZeroPassesFor(Stream<Turn> turns) {
+    public Optional<Long> zeroPositionsIncludingZeroPassesFor(Stream<Turn> turns) {
         return Optional.of(DialSequence.from(turns, decoySafe)
                 .filter(Dial::hasZeroPassesOrFinalZeroDestination)
                 .map(Dial::countZeroPassesAndZeroDestination)

@@ -1,18 +1,18 @@
-package de.geopla.learn;
+package de.geopla.learn.day1;
 
 import org.jspecify.annotations.NullMarked;
 
 @NullMarked
-class DecoySafe {
+public class DecoySafe {
 
     // 0 .. 99
     final static int MAX_DIALS = 100;
 
-    record Turn(Direction direction, int clicks) {
+    public record Turn(Direction direction, int clicks) {
     }
 
-    record Dial(int pointsTo, int zeroPassCount) {
-        Dial(int pointsTo) {
+    public record Dial(int pointsTo, int zeroPassCount) {
+        public Dial(int pointsTo) {
             this(pointsTo, 0);
         }
 
@@ -33,15 +33,15 @@ class DecoySafe {
 
     private Dial dial;
 
-    DecoySafe(Dial dial) {
+    public DecoySafe(Dial dial) {
         this.dial = dial;
     }
 
-    Dial dial() {
+    public Dial dial() {
         return dial;
     }
 
-    Dial next(Turn turn) {
+    public Dial next(Turn turn) {
         this.dial = new Dial(
                 switch (turn.direction) {
                     case RIGHT -> computeRightDial(dial.pointsTo, turn.clicks);
